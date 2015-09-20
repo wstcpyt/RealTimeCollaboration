@@ -1,0 +1,51 @@
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<dom-module id="firebase-login-button">
+    <template>
+        <paper-button raised on-click="loginClick">Login</paper-button>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "firebase-login-button",
+        properties:{
+            provider: String,
+            firebaseRef: String
+        },
+        loginClick: function () {
+            console.log(this.firebaseRef)
+            var ref = new Firebase(this.firebaseRef);
+
+            ref.authWithOAuthPopup(this.provider, function(error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                    ref.child("users").child(authData.uid).once('value', function(snapshot) {
+                        console.log(snapshot.val());
+                        isNewUser =  (snapshot.val() == null);
+                        if(isNewUser){
+                            console.log("is New User")
+                            ref.child("users").child(authData.uid).set({
+                                provider: authData.provider,
+                                name: getName(authData)
+                            })
+                        }
+                    });
+                }
+            });
+
+            function getName(authData){
+                switch(authData.provider) {
+                    case 'password':
+                        return authData.password.email.replace(/@.*/, '');
+                    case 'twitter':
+                        return authData.twitter.displayName;
+                    case 'facebook':
+                        return authData.facebook.displayName;
+                    case 'google':
+                        return authData.google.displayName;
+                }
+            }
+        }
+    })
+</script>

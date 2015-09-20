@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script>
+        window.Polymer = window.Polymer || {};
+        window.Polymer.dom = 'shadow';
+    </script>
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="src/polymer_components/firebase-login-button/firebase-login-button.html">
+    <title>InfoMagnetic</title>
+    <style>
+    </style>
+</head>
+<body class="fullbleed layout vertical">
+<paper-header-panel class="flex" mode="waterfall">
+    <paper-toolbar>
+        <div class="brand">Infomagnetic</div>
+    </paper-toolbar>
+    <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
+</paper-header-panel>
+
+</body>
+</html>
