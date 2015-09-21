@@ -24,7 +24,15 @@
         <div class="brand">Infomagnetic</div>
         <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
     </paper-toolbar>
-    <canvas-draw></canvas-draw>
+    <paper-button id="createSessionId" raised onclick="createSession()">Creat user session</paper-button>
+    <canvas-draw id="drawID"></canvas-draw>
 </paper-header-panel>
+<script>
+    function createSession() {
+        console.log("clicked")
+        document.getElementById("drawID").isHidden = false;
+        document.getElementById("createSessionId").style.visibility = "hidden";
+    }
+</script>
 </body>
 </html>
