@@ -12,17 +12,18 @@
     <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="src/polymer_components/firebase-login-button/firebase-login-button.html">
+    <link rel="stylesheet" type="text/css" href="src/css/example.css">
     <title>InfoMagnetic</title>
     <style>
+        firebase-login-button {position: fixed; right: 20px; top: 10px;}
     </style>
 </head>
 <body class="fullbleed layout vertical">
 <paper-header-panel class="flex" mode="waterfall">
     <paper-toolbar>
         <div class="brand">Infomagnetic</div>
+        <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
     </paper-toolbar>
-    <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
 </paper-header-panel>
-
 </body>
 </html>
