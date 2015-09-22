@@ -27,7 +27,9 @@
             <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
         </paper-toolbar>
         <iron-pages id="ironpagesId" selected="{{route}}">
-            <section><paper-button id="createSessionId" raised onclick="createSession()">Creat new session</paper-button></section>
+            <section>
+                <paper-button id="createSessionId" raised onclick="createSession()">Creat new session</paper-button>
+            </section>
             <section>
                 <canvas-draw id="drawID"></canvas-draw>
             </section>
@@ -36,6 +38,7 @@
 </template>
 <script src="bower_components/page/page.js"></script>
 <script src="app.js"></script>
+<script src="pixelite.js"></script>
 <script>
     function generateUUID(){
         var d = new Date().getTime();
