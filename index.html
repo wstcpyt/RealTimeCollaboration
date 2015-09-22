@@ -13,25 +13,46 @@
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="src/polymer_components/firebase-login-button/firebase-login-button.html">
     <link rel="import" href="src/polymer_components/canvas-draw/canvas-draw.html">
+    <link rel="import" href="bower_components/iron-pages/iron-pages.html">
     <title>InfoMagnetic</title>
     <style>
         firebase-login-button {position: fixed; right: 20px; top: 10px;}
     </style>
 </head>
 <body class="fullbleed layout vertical">
-<paper-header-panel class="flex" mode="waterfall">
-    <paper-toolbar>
-        <div class="brand">Infomagnetic</div>
-        <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
-    </paper-toolbar>
-    <paper-button id="createSessionId" raised onclick="createSession()">Creat user session</paper-button>
-    <canvas-draw id="drawID"></canvas-draw>
-</paper-header-panel>
+<template id="appId" is="dom-bind">
+    <paper-header-panel class="flex" mode="waterfall">
+        <paper-toolbar>
+            <div class="brand"><a style="text-decoration: none; color: white;" href="">Infomagnetic</a></div>
+            <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
+        </paper-toolbar>
+        <iron-pages id="ironpagesId" selected="{{route}}">
+            <section><paper-button id="createSessionId" raised onclick="createSession()">Creat new session</paper-button></section>
+            <section>
+                <canvas-draw id="drawID"></canvas-draw>
+            </section>
+        </iron-pages>
+    </paper-header-panel>
+</template>
+<script src="bower_components/page/page.js"></script>
+<script src="app.js"></script>
 <script>
+    function generateUUID(){
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (d + Math.random()*16)%16 | 0;
+            d = Math.floor(d/16);
+            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+    }
     function createSession() {
-        console.log("clicked")
-        document.getElementById("drawID").isHidden = false;
-        document.getElementById("createSessionId").style.visibility = "hidden";
+        //make sure the canvas is clear
+        document.querySelector("#drawID").pixelDataRef.remove();
+        var uniqueRef = new Firebase('https://infomagnetic.firebaseio.com/draw/').push();
+        var uuid = uniqueRef.path.w[1];
+        page(serverRoute + '/draw/' + uuid);
+        document.querySelector("#drawID").pixelDataRef = uniqueRef;
     }
 </script>
 </body>
