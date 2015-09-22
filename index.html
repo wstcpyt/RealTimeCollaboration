@@ -14,41 +14,67 @@
     <link rel="import" href="src/polymer_components/firebase-login-button/firebase-login-button.html">
     <link rel="import" href="src/polymer_components/canvas-draw/canvas-draw.html">
     <link rel="import" href="bower_components/iron-pages/iron-pages.html">
-    <title>InfoMagnetic</title>
-    <style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <title>FlockPixel</title>
+    <style is="custom-style">
         firebase-login-button {position: fixed; right: 20px; top: 10px;}
+        #createSessionId {
+            display: block;
+            width: 200px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 20px;
+            margin-bottom: 100px;
+        }
+        footer {
+            width: 100%;
+            bottom: 0;
+            position: fixed;
+            text-align: center;
+            background-color: #f38100;
+        }
+        paper-toolbar{
+            --paper-toolbar-background: #f38100;
+        }
     </style>
 </head>
 <body class="fullbleed layout vertical">
 <template id="appId" is="dom-bind">
     <paper-header-panel class="flex" mode="waterfall">
         <paper-toolbar>
-            <div class="brand"><a style="text-decoration: none; color: white;" href="">Infomagnetic</a></div>
-            <firebase-login-button provider="google" firebase-ref="https://infomagnetic.firebaseio.com"></firebase-login-button>
+            <div class="brand pixelfont"><a style="text-decoration: none; color: white;" href="">FlockPixel</a></div>
         </paper-toolbar>
         <iron-pages id="ironpagesId" selected="{{route}}">
             <section>
-                <paper-button id="createSessionId" raised onclick="createSession()">Creat new session</paper-button>
+                <img src="static/image/bee_yellow.png" class="img-responsive" style="margin-bottom: 50px; margin-top: 60px;">
+                <h1 class="text-center" style="margin-bottom: 40px">FlockPixel</h1>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <p style="line-height: 120%"> FlockPixel is a free to use online Pixel Art collaborative drawing tool.
+                            No regigstration needed. Create your group drawing session in just
+                            one clicks. You can have unlimited people in a drawing session and the
+                            canvas is updates in real time.
+                        </p>
+                    </div>
+                </div>
+                <paper-button id="createSessionId" raised onclick="createSession()" style="background: #e62a23; color: white; margin-top: 40px">Creat new session</paper-button>
             </section>
             <section>
                 <canvas-draw id="drawID"></canvas-draw>
             </section>
         </iron-pages>
+        <footer>
+            <div style="color: white; margin-top: 20px; margin-bottom: 20px">
+                Created by Yutong Pang, using HTML5, Canvas, Google Polymer, Firebase.
+                <div style="margin-top: 10px">Contact: wstcpyt@gmail.com</div>
+            </div>
+        </footer>
     </paper-header-panel>
 </template>
 <script src="bower_components/page/page.js"></script>
 <script src="app.js"></script>
-<script src="pixelite.js"></script>
 <script>
-    function generateUUID(){
-        var d = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (d + Math.random()*16)%16 | 0;
-            d = Math.floor(d/16);
-            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-        });
-        return uuid;
-    }
     function createSession() {
         //make sure the canvas is clear
         document.querySelector("#drawID").pixelDataRef.remove();

@@ -1,11 +1,9 @@
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 <dom-module id="canvas-draw">
     <style>
         :host {
             display: block;
-            width: 480px;
-            margin-right: auto;
-            margin-left: auto;
         }
         .colorbox {
             width: 22px;
@@ -14,20 +12,34 @@
             display: inline-block;
             border: 3px solid black;
         }
+        #drawing-canvas{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: crosshair;
+        }
+        #colorholder{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: crosshair;
+        }
     </style>
     <template>
-        <div id="canvasId" hidden$="{{isHidden}}">
-            <div class="l-demo-container" style="width: 480px">
-                <canvas style="background-color: #80deea" id="drawing-canvas" width="480" height="420"></canvas>
+        <div class="horizontal layout">
+            <div>
             </div>
-            <div id="colorholder" style="height: 30px; width:480px"></div>
-            <paper-button raised on-click="clearCanvas">Clear</paper-button>
-            <paper-button raised on-click="copyToClipboard">Copy Share Link</paper-button>
-
+            <div class="flex" id="canvasId" hidden$="{{isHidden}}">
+                <canvas style="background-color: #434343" id="drawing-canvas" width="500" height="500"></canvas>
+                <div id="colorholder" style="height: 30px; width:500px; margin-bottom: 40px"></div>
+            </div>
+            <div>
+                <paper-button style="background: #e62a23; color: white" raised on-click="clearCanvas">Clear</paper-button>
+                <paper-button style="background: #3c9f3b; color: white" raised on-click="copyToClipboard">Copy Share Link</paper-button>
+            </div>
         </div>
     </template>
 </dom-module>
-
 <script>
     Polymer({
         is:"canvas-draw",
@@ -69,7 +81,7 @@
         _pixelDataRefChanged: function () {
             _this = this;
             //Set up some globals
-            this.pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
+            this.pixSize = 16, lastPoint = null, currentColor = "000", mouseDown = 0;
             //Create a reference to the pixel data for our drawing.
 
             // Set up our canvas
@@ -88,10 +100,11 @@
                 mouseDown = 0; lastPoint = null;
             };
 
+            var tempx0;
+            var tempy0;
+
             //Draw a line from the mouse's last position to its current position
             var drawLineOnMouseMove = function(e) {
-                if (!mouseDown) return;
-                e.preventDefault();
 
                 // Bresenham's line algorithm. We use this to ensure smooth lines are drawn
                 var offset = myCanvas.getBoundingClientRect();
@@ -101,6 +114,8 @@
                 var y0 = (lastPoint == null) ? y1 : lastPoint[1];
                 var dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
                 var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
+                if (!mouseDown) return;
+                e.preventDefault();
                 while (true) {
                     //write the pixel into Firebase, or if we are drawing white, remove the pixel
                     _this.pixelDataRef.child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
