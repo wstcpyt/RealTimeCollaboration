@@ -14,6 +14,8 @@
     "tests"
   ],
   "dependencies": {
+    "canvas-toBlob.js": "eligrey/canvas-toBlob.js",
+    "file-saver.js": "Teleborder/FileSaver.js#~1.20150507.2",
     "iron-pages": "PolymerElements/iron-pages#^1.0.0",
     "page": "page.js#~1.6.3",
     "paper-button": "PolymerElements/paper-button#^1.0.0",

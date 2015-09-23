@@ -24,6 +24,10 @@
             margin-right: auto;
             cursor: crosshair;
         }
+        paper-button{
+            display: block;
+            margin-bottom: 10px;
+        }
     </style>
     <template>
         <div class="horizontal layout">
@@ -35,11 +39,14 @@
             </div>
             <div>
                 <paper-button style="background: #e62a23; color: white" raised on-click="clearCanvas">Clear</paper-button>
-                <paper-button style="background: #3c9f3b; color: white" raised on-click="copyToClipboard">Copy Share Link</paper-button>
+                <paper-button style="background: #3c9f3b; color: white" raised on-click="SavePng">Save</paper-button>
+                <paper-button style="background: #634236; color: white" raised on-click="copyToClipboard">Copy Share Link</paper-button>
             </div>
         </div>
     </template>
 </dom-module>
+<script src="../../../bower_components/file-saver.js/FileSaver.js"></script>
+<script src="../../../bower_components/canvas-toBlob.js/canvas-toBlob.js"></script>
 <script>
     Polymer({
         is:"canvas-draw",
@@ -152,6 +159,12 @@
         },
         copyToClipboard: function () {
             window.prompt("Copy to clipboard: Ctrl+C, Enter", window.location.href );
+        },
+        SavePng: function () {
+            var myCanvas = this.$$('#drawing-canvas');
+            myCanvas.toBlob(function(blob){
+                saveAs(blob, "image.png")
+            })
         }
     })
 </script>4
