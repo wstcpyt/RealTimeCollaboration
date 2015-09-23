@@ -1,9 +1,9 @@
 var app = document.querySelector('#appId');
 
-serverRoute = "/staticinfomagnetic";
+serverRoute = "";
 
 //Define routes
-page(serverRoute, home);
+page(serverRoute + '/', home);
 page(serverRoute + '/draw/:sessionid', draw);
 
 //Configure
