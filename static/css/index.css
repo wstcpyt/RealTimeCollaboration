@@ -1,0 +1,27 @@
+@font-face {
+  font-family: miniset2;
+  src: url(miniset2.ttf); }
+html, body {
+  line-height: 1;
+  font-family: miniset2, serif; }
+  html h1, body h1 {
+    font-family: miniset2, serif;
+    font-weight: 300;
+    font-size: 50px;
+    letter-spacing: -0.01em; }
+  html .pixelfont, body .pixelfont {
+    font-family: miniset2, serif; }
+  html .text-center, body .text-center {
+    text-align: center; }
+  html img, body img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px; }
+  html section, body section {
+    padding: 50px; }
+  html p, body p {
+    font-size: 20px;
+    font-weight: 100; }
+
+/*# sourceMappingURL=index.css.map */
