@@ -13,6 +13,7 @@
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="src/polymer_components/firebase-login-button/firebase-login-button.html">
     <link rel="import" href="src/polymer_components/canvas-draw/canvas-draw.html">
+    <link rel="import" href="bower_components/paper-toast/paper-toast.html">
     <link rel="import" href="bower_components/iron-pages/iron-pages.html">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/index.css">
@@ -65,6 +66,7 @@
             </section>
         </iron-pages>
         <footer>
+            <paper-toast style="background-color: green" id="sessioncreated" text="Your session has been created."></paper-toast>
             <div style="color: white; margin-top: 20px; margin-bottom: 20px">
                 Created by Yutong Pang, using HTML5, Canvas, Google Polymer, Firebase.
                 <div style="margin-top: 10px">Contact: wstcpyt@gmail.com</div>
@@ -76,6 +78,7 @@
 <script src="app.js"></script>
 <script>
     function createSession() {
+        document.querySelector('#sessioncreated').show()
         //make sure the canvas is clear
         document.querySelector("#drawID").pixelDataRef.remove();
         var uniqueRef = new Firebase('https://infomagnetic.firebaseio.com/draw/').push();
