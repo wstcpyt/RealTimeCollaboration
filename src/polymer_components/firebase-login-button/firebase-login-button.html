@@ -9,6 +9,10 @@
     Polymer({
         is: "firebase-login-button",
         properties:{
+            login: {
+                type: Boolean,
+                notify: true
+            },
             provider: String,
             firebaseRef: String,
             userName:{
@@ -23,6 +27,7 @@
             if(authData){
                 this.userName = this.getName(authData);
             }
+            this.login = false
         },
         loginClick: function () {
             var authData = this.ref.getAuth();
@@ -48,6 +53,7 @@
                     }
                 });
             }
+            this.login = false
         },
         getName: function(authData) {
             switch(authData.provider) {

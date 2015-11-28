@@ -1,6 +1,6 @@
 var app = document.querySelector('#appId');
 
-serverRoute = "";
+serverRoute = "/staticinfomagnetic";
 
 //Define routes
 page(serverRoute + '/', home);
